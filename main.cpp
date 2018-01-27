@@ -10,22 +10,40 @@ typedef vector<Vec> Mat;
 
 
 Mat operator*(const Mat &a, const Mat &b){
-    int i,j, tmp;
+    int tmp;
   
     int m = a.size();
     int n = b.size();
     
     if (m!=n) exit ;
 
-    Mat prod(m);
+  Mat prod(m,Vec(m));
 
-  for(i = 0; i < m; i++) {
-      tmp=0;
-      for (j=0; j < m ; j++) {
-        prod[i][j] += a[i][j] * b[j][i];                  
+  for(int i = 0; i < m; i++) {
+      for (int j=0; j < m; j++) {
+        tmp = (a[i][j] * b[j][i]);
+        prod[i][j] = prod[i][j]+tmp;                  
       }
   }
   return prod;
+}
+
+Mat create_eigen(int n) {
+  int tmp_0 = 0;
+  int tmp_1 = 1;
+  Mat I;
+  Vec vTmp;
+
+    for (int i=0;i<n;i++){
+      vTmp.clear(); 
+      for (int j=0;j<n;j++) {
+        if (i == j)   vTmp.push_back(tmp_1);
+        else          vTmp.push_back(tmp_0);        
+      }
+      I.push_back(vTmp);
+    }
+  return I;
+
 }
 
 ostream& operator<<(ostream& os, const Mat& A)  
@@ -48,7 +66,7 @@ int main() {
     
     int n=0;
     int tmp;
-    Mat A;
+    Mat A, I, B;
     Vec vTmp;
     
     cin >> n;
@@ -61,12 +79,13 @@ int main() {
       A.push_back(vTmp);
     }
 
-    cout << A;
-    // for (int i=0;i<n;i++) {
-    //   cout << endl;
-    //     for (int j=0;j<n;j++) {
-    //         cout << A[i][j] << " ";        
-    //     }
-    // }
+    I = create_eigen(n);
+
+    B = A * I;
+    cout <<"A"<<endl<< A;
+    cout <<"I"<<endl<< I;
+    cout <<"B"<<endl<< B;
+
+
     return 0;
 }
