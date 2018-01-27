@@ -15,11 +15,11 @@ Mat operator*(const Mat &a, const Mat &b){
     int m = a.size();
     int n = b.size();
     
-    if (m<>n) return -1;
+    if (m!=n) exit ;
 
     Mat prod(m);
 
-  for(i = 0; i < m; i++)
+  for(i = 0; i < m; i++) {
       tmp=0;
       for (j=0; j < m ; j++) {
         prod[i][j] += a[i][j] * b[j][i];                  
@@ -28,9 +28,8 @@ Mat operator*(const Mat &a, const Mat &b){
   return prod;
 }
 
-
 int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    
     int n=0;
     int tmp;
     Mat A;
@@ -39,7 +38,7 @@ int main() {
     for (int i=0;i<n;i++)
         for (int j=0;j<n;j++) {
             cin >> tmp;
-            a[i][j] = tmp;        
+            A[i][j] = tmp;        
         }
     return 0;
 }
