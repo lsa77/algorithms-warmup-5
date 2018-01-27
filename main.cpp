@@ -33,12 +33,17 @@ int main() {
     int n=0;
     int tmp;
     Mat A;
+    Vec vTmp;
     
     cin >> n;
     for (int i=0;i<n;i++)
         for (int j=0;j<n;j++) {
             cin >> tmp;
-            A[i][j] = tmp;        
+            vTmp.push_back(tmp);
+            A.push_back(vTmp);        
         }
+
+    cout << A;    
+
     return 0;
 }
