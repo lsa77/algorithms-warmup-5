@@ -28,6 +28,22 @@ Mat operator*(const Mat &a, const Mat &b){
   return prod;
 }
 
+ostream& operator<<(ostream& os, const Mat& A)  
+{  
+  int n=0;
+  n = A.size();
+
+    for (int i=0;i<n;i++) {
+      os << endl;
+        for (int j=0;j<n;j++) {
+            os << A[i][j] << " ";        
+        }
+    }
+
+
+    return os;  
+}  
+
 int main() {
     
     int n=0;
@@ -36,14 +52,21 @@ int main() {
     Vec vTmp;
     
     cin >> n;
-    for (int i=0;i<n;i++)
-        for (int j=0;j<n;j++) {
-            cin >> tmp;
-            vTmp.push_back(tmp);
-            A.push_back(vTmp);        
-        }
+    for (int i=0;i<n;i++){
+      vTmp.clear(); 
+      for (int j=0;j<n;j++) {
+        cin >> tmp;
+        vTmp.push_back(tmp);        
+      }
+      A.push_back(vTmp);
+    }
 
-    cout << A;    
-
+    cout << A;
+    // for (int i=0;i<n;i++) {
+    //   cout << endl;
+    //     for (int j=0;j<n;j++) {
+    //         cout << A[i][j] << " ";        
+    //     }
+    // }
     return 0;
 }
