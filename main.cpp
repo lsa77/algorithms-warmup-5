@@ -28,6 +28,38 @@ Mat operator*(const Mat &a, const Mat &b){
   return prod;
 }
 
+Vec operator*(const Mat &a, const Vec &x){
+  
+    int m = a.size();
+    int n = x.size();
+    
+    if (m!=n) exit ;
+
+  Vec prod(m);
+
+  for(int i = 0; i < m; i++) {
+      prod[i]=0;
+      for (int j=0; j < n; j++) {
+        //cout<<endl<< a[i][j] << " " << x[j];
+        prod[i] += a[i][j] * x[j];                  
+      }
+  }
+  return prod;
+}
+
+int vElementsSum( const Vec& x ) {
+  int n, sum;
+  n = x.size();
+  sum = 0;
+
+  for(int i=0;i<n;i++){
+    sum += x[i];
+  }
+
+  return sum;
+
+}
+
 Mat create_eigen(int n) {
   int tmp_0 = 0;
   int tmp_1 = 1;
@@ -62,13 +94,32 @@ ostream& operator<<(ostream& os, const Mat& A)
     return os;  
 }  
 
+ostream& operator<<(ostream& os, const Vec& x)  
+{  
+  int n=0;
+  n = x.size();
+
+    for (int i=0;i<n;i++) {
+      os << endl;
+      os << x[i] << " ";        
+      
+    }
+
+
+    return os;  
+}  
+
 int main() {
     
     int n=0;
     int tmp;
+    int sumI;
+
     Mat A, I, B;
     Vec vTmp;
-    
+    Vec vI = {1,1,1};
+    Vec y;
+
     cin >> n;
     for (int i=0;i<n;i++){
       vTmp.clear(); 
@@ -82,10 +133,16 @@ int main() {
     I = create_eigen(n);
 
     B = A * I;
-    cout <<"A"<<endl<< A;
-    cout <<"I"<<endl<< I;
-    cout <<"B"<<endl<< B;
+    y = B * vI;
 
+    sumI = vElementsSum(y);
+
+
+    cout <<endl<<"A"<< A;
+    cout <<endl<<"I"<< I;
+    cout <<endl<<"B"<< B;
+    cout <<endl<<"y"<< y;
+    cout <<endl<<"sumI"<< sumI;
 
     return 0;
 }
