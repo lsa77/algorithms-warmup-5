@@ -78,6 +78,22 @@ Mat create_eigen(int n) {
 
 }
 
+Mat create_eigen_bis(int n) {
+  int tmp_0 = 0;
+  int tmp_1 = 1;
+  Mat I;
+  Vec vTmp(n);
+
+      for (int j= n-1;j>=0;j--) {
+        vTmp[j] = tmp_1;
+        I.push_back(vTmp);
+        vTmp[j] = tmp_0;
+      }
+    
+  return I;
+
+}
+
 ostream& operator<<(ostream& os, const Mat& A)  
 {  
   int n=0;
@@ -113,14 +129,19 @@ int main() {
     
     int n=0;
     int tmp;
-    int sumI;
+    int sumI, sumIb;
 
     Mat A, I, B;
+    Mat Ib, C;
     Vec vTmp;
-    Vec vI = {1,1,1};
-    Vec y;
+    Vec vI;
+    Vec y,z;
 
     cin >> n;
+    
+    for(int e=0;e<n;e++)
+      vI.push_back(1);
+
     for (int i=0;i<n;i++){
       vTmp.clear(); 
       for (int j=0;j<n;j++) {
@@ -130,19 +151,28 @@ int main() {
       A.push_back(vTmp);
     }
 
-    I = create_eigen(n);
+    I   = create_eigen(n);
+    Ib  = create_eigen_bis(n);
 
-    B = A * I;
-    y = B * vI;
+    B   = A * I;
+    y   = B * vI;
 
-    sumI = vElementsSum(y);
+    C   = A * Ib;
+    z   = C * vI;
 
+    sumI  = vElementsSum(y);
+    sumIb = vElementsSum(z);
 
-    cout <<endl<<"A"<< A;
-    cout <<endl<<"I"<< I;
-    cout <<endl<<"B"<< B;
-    cout <<endl<<"y"<< y;
-    cout <<endl<<"sumI"<< sumI;
-
+    cout << abs(sumI - sumIb);
+    // cout <<endl<<"A"<< A;
+    // cout <<endl<<"I"<< I;
+    // cout <<endl<<"B"<< B;
+    // cout <<endl<<"y"<< y;
+    // cout <<endl<<"sumI"<< sumI;
+    // cout <<endl<<"Ib"<< Ib;
+    // cout <<endl<<"C"<< C;
+    // cout <<endl<<"z"<< z;
+    
+    
     return 0;
 }
